@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using BoardGameStats.Database;
+using BoardGameStats.Model;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +21,22 @@ namespace BoardGameStats
         public MainWindow()
         {
             InitializeComponent();
+
+            try
+            {
+                using (AppDbContext  db = new AppDbContext())
+                {
+                    Player p = db.Players.FirstOrDefault();
+                    if (p != null)
+                    {
+                        lbl.Content = p.Name;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
