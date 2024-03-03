@@ -1,6 +1,7 @@
 ﻿using BoardGameStats.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ namespace BoardGameStats.Database
     {
         public AppDbContext() { }
 
-        public DbSet<Player> Players { get; set; }
-        public DbSet<Game> Games { get; set; }
-        public DbSet<Play> Plays { get; set; }
+        public DbSet<Player> Player { get; set; }
+        public DbSet<Game> Game { get; set; }
+        public DbSet<Play> Play { get; set; }
+        public DbSet<PlayPlayer> PlayPlayer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,14 +30,18 @@ namespace BoardGameStats.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Player>()
-                .HasMany(p => p.Plays)
-                .WithMany(g => g.Players)
-                .UsingEntity(j =>
-                {
-                    j.ToTable("PlayerPlay"); // Nastavení jména spojovací tabulky
-                    j.Property<int>("Score").IsRequired(); // Přidání sloupce Score
-                });
+            modelBuilder.Entity<PlayPlayer>()
+                .HasKey(pp => new { pp.PlayId, pp.PlayerId });
+
+            modelBuilder.Entity<PlayPlayer>()
+                .HasOne(pp => pp.Play)
+                .WithMany(p => p.PlayerPlays)
+                .HasForeignKey(pp => pp.PlayId);
+
+            modelBuilder.Entity<PlayPlayer>()
+                .HasOne(pp => pp.Player)
+                .WithMany(p => p.PlayerPlays)
+                .HasForeignKey(pp => pp.PlayerId);
         }
     }
 }

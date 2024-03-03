@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BoardGameStats.Model
 {
-    public class Game
+    public class Game : EntitiyBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public GameType Type { get; set; }
         public List<Play> Plays { get; set; }

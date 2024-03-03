@@ -26,11 +26,6 @@ namespace BoardGameStats
             {
                 using (AppDbContext  db = new AppDbContext())
                 {
-                    Player p = db.Players.FirstOrDefault();
-                    if (p != null)
-                    {
-                        lbl.Content = p.Name;
-                    }
                 }
             }
             catch (Exception ex)
