@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoardGameStats.Model
 {
-    public class Play
+    public class Play : EntitiyBase
     {
-        public int Id { get; set; }
         public Game Game { get; set; }
         public int GameId { get; set; }
         public DateTime Created { get; set; }
-        public List<Player> Players { get; set; }
+        public List<PlayPlayer> PlayerPlays { get; set; }
     }
 }
