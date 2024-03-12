@@ -9,6 +9,11 @@ namespace BoardGameStats
     /// </summary>
     public partial class App : Application
     {
+        protected void ApplicationStart(object sender, StartupEventArgs e)
+        {
+            var mainView = new MainWindow();
+            mainView.Show();
+        }
     }
 
 }
