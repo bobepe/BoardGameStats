@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGameStats.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace BoardGameStats.View
         public PlayerView()
         {
             InitializeComponent();
+        }
+
+        private void searchPlayerTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            PlayerListView.Items.Filter = FilterPlayer;
+        }
+
+        private bool FilterPlayer(object obj)
+        {
+            Player player = (Player)obj;
+            return player.Name.Contains(searchPlayerTxt.Text, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

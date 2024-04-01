@@ -4,9 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BoardGameStats.View"
+             xmlns:viewModel="clr-namespace:BoardGameStats.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:PlayerViewModel />
+    </UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <TextBlock Foreground="White" Text="Player view page" FontSize="20" Margin="10" />
+        <TextBox x:Name="searchPlayerTxt" TextChanged="searchPlayerTxt_TextChanged" Grid.Row="1" Margin="10" Width="200" HorizontalAlignment="Left" />
+        <Button x:Name="createPlayerBtn" Grid.Row="1" Margin="10" Width="auto" Padding="20 0" HorizontalAlignment="Right"
+                Content="Vytvořit hráče" Command="{Binding ShowWindowCommand}" />
+        <ListView x:Name="PlayerListView" Grid.Row="2" Margin="10" ItemsSource="{Binding AllPlayers}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Jméno" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
