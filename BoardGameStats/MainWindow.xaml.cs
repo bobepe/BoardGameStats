@@ -28,6 +28,8 @@ namespace BoardGameStats
             {
                 using (AppDbContext  db = new AppDbContext())
                 {
+                    //PlayerRepository pr = new PlayerRepository();
+                    //pr.Add(new Player() { Name = "Admin" });
                 }
             }
             catch (Exception ex)
